@@ -8,12 +8,16 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
+    "md5": "^2.2.1",
+    "muse-ui": "^2.1.0",
     "vue": "^2.5.13",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0-alpha.6",
     "@vue/cli-service": "^3.0.0-alpha.6",
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5",
     "vue-template-compiler": "^2.5.13"
   },
   "babel": {
