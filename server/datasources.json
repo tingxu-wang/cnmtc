@@ -1,0 +1,16 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "mongo": {
+    "host": "",
+    "port": 27017,
+    "url": "mongodb://127.0.0.1:27017",
+    "database": "cnmtc",
+    "password": "qwaa1234",
+    "name": "mongo",
+    "user": "tingxu.wang",
+    "connector": "mongodb"
+  }
+}
