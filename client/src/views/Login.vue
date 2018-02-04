@@ -4,12 +4,17 @@
       <mu-text-field hintText="用户名" v-model="name" :errorText="nameError"/>
       <mu-text-field hintText="密码" type="password" v-model="password" :errorText="passwordError"/>
       <mu-raised-button label="提交" primary @click="submit"/>
+
+      <div>
+        {{ errorText }}
+      </div>
     </div>
   </div>
 </template>
 
 <script>
   import query from '../service/query'
+
   export default {
     name: 'login',
     data() {
@@ -18,6 +23,7 @@
         password: '',
         nameError: '',
         passwordError: '',
+        errorText: ''
       }
     },
     methods: {
@@ -28,7 +34,13 @@
     		if(!this.password) this.passwordError = '密码必填';
         if(this.name && this.password){
           query.login(this.name, this.password).then((res) => {
-          	console.log(res);
+          	const data = res.data.data;
+          	if(data.code === 1){
+              sessionStorage.setItem('userInfo', JSON.stringify(data.data));
+              this.$router.push({ name: 'userlist' });
+            }else{
+              this.errorText = data.msg;
+            }
           })
         }
       }
@@ -38,10 +50,6 @@
   }
 </script>
 
-<style lang="less">
-.page-container{
-  .login-main-container{
+<style lang="less" scoped>
 
-  }
-}
 </style>
