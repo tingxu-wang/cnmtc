@@ -15,11 +15,11 @@
       '$route': 'routerChange'
     },
     created (){
-    	this.checkLogin();
+//    	this.checkLogin();
     },
     methods: {
       routerChange (){
-      	this.checkLogin();
+//      	this.checkLogin();
       },
       checkLogin (){
         const userInfo = sessionStorage.getItem('userInfo');

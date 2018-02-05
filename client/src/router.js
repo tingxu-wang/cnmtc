@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from './views/Login.vue'
 import UserList from './views/UserList.vue'
+import UserDetail from './views/UserDetail.vue'
 
 Vue.use(Router)
 
@@ -10,12 +11,17 @@ export default new Router({
     {
       path: '/',
       name: 'login',
-      component: Login
+      component: Login,
     },
     {
       path: '/userlist',
-      name: 'userlist',
-      component: UserList
-    }
+      name: 'userList',
+      component: UserList,
+    },
+    {
+      path: '/userdetail/:id',
+      name: 'userDetail',
+      component: UserDetail,
+    },
   ]
 })

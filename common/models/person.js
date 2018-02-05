@@ -4,7 +4,12 @@ module.exports = function(Person) {
   Person.getList = function(name = '', location = 0, career = 0, evaluate = 0, cb) {
     let filters = {};
 
-    name !== '' ? filters.name = name : '';
+    name !== '' ? filters.name = decodeURIComponent(name) : '';
+    if(name !== ''){
+      filters.name = {
+        regexp: new RegExp(name, 'i')
+      }
+    }
     location !== 0 ? filters.location = location : '';
     career !== 0 ? filters.career = career : '';
     evaluate !== 0 ? filters.evaluate = evaluate : '';
@@ -23,6 +28,36 @@ module.exports = function(Person) {
       }
       cb(err,res);
     });
+  };
+
+  Person.getById = function(id = '', cb){
+    let res = {};
+    const filters = {
+      id,
+    };
+
+    if(id){
+      Person.findOne({
+        where: filters,
+      },(err, data)=> {
+        if(data){
+          res.code = 1;
+          res.data = data;
+        }else{
+          res.code = 0;
+          res.data = {};
+          res.msg = '未找到律师信息';
+        }
+        cb(err, res);
+      });
+    }else{
+      res = {
+        code : 0,
+        msg : 'id为空',
+        data: {},
+      };
+      cb('id is empty', res);
+    }
   };
 
   Person.remoteMethod(
@@ -52,6 +87,24 @@ module.exports = function(Person) {
         arg: 'data',
         type: 'string',
       }
+    }
+  )
+
+  Person.remoteMethod(
+    'getById',{
+      http: {
+        verb: 'get'
+      },
+      accepts:[
+        {
+          arg: 'id',
+          type: 'string',
+        },
+      ],
+      returns: {
+        arg: 'data',
+        type: 'string',
+      },
     }
   )
 };

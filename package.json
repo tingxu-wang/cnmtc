@@ -5,7 +5,8 @@
   "scripts": {
     "lint": "eslint .",
     "start": "node .",
-    "posttest": "npm run lint && nsp check"
+    "posttest": "npm run lint && nsp check",
+    "connect": "cd /usr/local/mongodb/bin && ./mongod --dbpath /Users/tingxuwang/Documents/code/myGithub/cnmtc/db"
   },
   "dependencies": {
     "compression": "^1.0.3",

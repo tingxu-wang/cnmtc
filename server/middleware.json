@@ -28,10 +28,13 @@
     "helmet#noSniff": {},
     "helmet#noCache": {
       "enabled": false
-    }
+    },
+    "./middleware/check-login": {}
   },
   "session": {},
-  "auth": {},
+  "auth": {
+
+  },
   "parse": {},
   "routes": {
     "loopback#rest": {

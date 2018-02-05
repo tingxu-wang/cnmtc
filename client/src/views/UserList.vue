@@ -9,6 +9,7 @@
     <mu-select-field v-model="evaluate" :labelFocusClass="['label-foucs']" label="选择服务质量评价">
       <mu-menu-item v-for="item,index in evaluateList" :key="index" :value="item.value" :title="item.text" />
     </mu-select-field>
+    <mu-auto-complete hintText="姓名" @input="handleNameInput" :dataSource="nameDataSource" @change="handleNamechange" />
     <mu-raised-button label="搜索" @click="getPersonList" primary/>
     <div>
       <mu-table ref="table" :selectable="false" :showCheckbox="false">
@@ -18,6 +19,7 @@
             <mu-th>地点</mu-th>
             <mu-th>专业领域</mu-th>
             <mu-th>服务质量评价</mu-th>
+            <mu-th>操作</mu-th>
           </mu-tr>
         </mu-thead>
         <mu-tbody>
@@ -26,6 +28,9 @@
             <mu-td>{{ item.location | getOptionText(locationList) }}</mu-td>
             <mu-td>{{ item.career | getOptionText(careerList) }}</mu-td>
             <mu-td>{{ item.evaluate | getOptionText(evaluateList) }}</mu-td>
+            <mu-td>
+              <mu-raised-button label="查看详情" @click="toDetail(item.id)" primary/>
+            </mu-td>
           </mu-tr>
         </mu-tbody>
       </mu-table>
@@ -37,8 +42,8 @@
   import query from '../service/query'
 
   export default {
-    name: 'userlist',
-    data() {
+    name: 'userList',
+    data (){
       return {
       	name: '',
         location: 0,
@@ -51,21 +56,36 @@
       this.getPersonList();
     },
     computed: {
-    	userInfo() {
+    	userInfo (){
     		return this.$store.state.userInfo;
       },
-      locationList() {
+      locationList (){
         return this.$store.state.locationList;
       },
-      careerList() {
+      careerList (){
         return this.$store.state.careerList;
       },
-      evaluateList() {
+      evaluateList (){
         return this.$store.state.evaluateList;
+      },
+      nameDataSource (){
+      	return this.personList.map((item) =>{
+      		return item.name;
+        });
       },
     },
     methods: {
-      getPersonList() {
+    	toDetail (id){
+    		this.$router.push({ name: 'userDetail', params: {id} })
+      },
+      handleNamechange (val){
+      	this.name = val;
+      },
+      handleNameInput (val){
+        this.name = val;
+        this.getPersonList();
+      },
+      getPersonList (){
         query.getPersonList(this.name, this.location, this.career, this.evaluate).then((res) => {
           const data = res.data.data;
 
