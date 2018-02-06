@@ -2,8 +2,16 @@
 
 var loopback = require('loopback');
 var boot = require('loopback-boot');
+var cookieParser = require('cookie-parser');
 
 var app = module.exports = loopback();
+
+app.use(cookieParser());
+
+app.use(loopback.token({
+  // cookies: ['access_token']
+  model: app.models.accessToken
+}));
 
 app.start = function() {
   // start the web server
