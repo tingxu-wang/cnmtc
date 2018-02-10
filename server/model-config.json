@@ -34,7 +34,7 @@
   },
   "Role": {
     "dataSource": "mongo",
-    "public": false
+    "public": true
   },
   "person": {
     "dataSource": "mongo",

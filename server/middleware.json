@@ -29,7 +29,7 @@
     "helmet#noCache": {
       "enabled": false
     },
-    "./middleware/check-login": {}
+    "./middleware/catch-token": {}
   },
   "session": {},
   "auth": {

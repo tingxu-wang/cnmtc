@@ -9,12 +9,8 @@
   "properties": {
     "password": {
       "type": "string",
-      "required": true
-    },
-    "auth": {
-      "type": "number",
       "required": true,
-      "default": 0
+      "default": "827ccb0eea8a706c4c34a16891f84e7b"
     }
   },
   "validations": [],

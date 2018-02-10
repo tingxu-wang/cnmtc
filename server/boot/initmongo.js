@@ -13,14 +13,14 @@ module.exports = function(app) {
       var RoleMapping = app.models.RoleMapping;
 
       Ouser.create([
-        {username: 'admin', email: 'admin@e.com', password: '12345'}
+        {username: 'admin', email: 'admin@e.com', password: '827ccb0eea8a706c4c34a16891f84e7b'},
+        {username: 'user', email: 'user@e.com', password: '827ccb0eea8a706c4c34a16891f84e7b'},
       ], function(err, users) {
         if (err) throw err;
         mongoDs.automigrate('Role', function(err){
           if(err) throw err;
           mongoDs.automigrate('RoleMapping', function(err){
             if(err) throw err;
-            var userid = users[0].id;
             Role.create({
               name: 'admin'
             }, function(err, role) {
@@ -28,12 +28,27 @@ module.exports = function(app) {
 
               role.principals.create({
                 principalType: RoleMapping.USER
-                , principalId: userid
+                , principalId: users[0].id
               }, function(err, principal) {
                 if (err) throw err;
                 console.log('Created principal:', principal);
               });
             });
+
+            Role.create({
+              name: 'user',
+            }, function(err, role) {
+              console.log('Created role:', role);
+
+              role.principals.create({
+                principalType: RoleMapping.USER
+                , principalId: users[1].id
+              }, function(err, principal) {
+                if (err) throw err;
+                console.log('Created principal:', principal);
+              });
+            });
+
           });
         });
       });
