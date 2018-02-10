@@ -19,6 +19,12 @@
     {
       "principalType": "ROLE",
       "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "userLogin"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
       "permission": "DENY"
     },
     {

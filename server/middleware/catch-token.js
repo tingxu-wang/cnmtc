@@ -10,11 +10,12 @@ var app = require('../server');
 
 module.exports = function(options) {
   return function checkLogin(req, res, next) {
-    var cookie = cookieParser.parse(req.headers.cookie);
+    if(req.path !== '/api/ousers/login'){
+      var cookie = cookieParser.parse(req.headers.cookie);
 
-    if(cookie['access_token']){
-      var paramString = 'access_token=' + cookie['access_token'];
-      req.query.access_token = cookie['access_token']
+      if(cookie['access_token']){
+        req.query.access_token = cookie['access_token']
+      }
     }
     next();
   }

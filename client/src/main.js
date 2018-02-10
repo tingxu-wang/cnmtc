@@ -12,7 +12,7 @@ Vue.config.productionTip = false
 
 Object.keys(filters).forEach(k => Vue.filter(k, filters[k]));
 
-new Vue({
+export default new Vue({
   router,
   store,
   render: h => h(App)

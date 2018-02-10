@@ -1,5 +1,20 @@
 import axios from 'axios'
 import md5 from 'md5'
+import vue from '../main'
+
+axios.interceptors.response.use(res => {
+  return res;
+}, err => {
+  if(err.response){
+    switch(err.response.status){
+      case 401:
+        vue.$router.replace({ name: 'login' });
+        break;
+    }
+  }
+
+  return Promise.reject(err.response.data)
+});
 
 const obj = {
   get (url, data){
@@ -18,7 +33,7 @@ const obj = {
     })
   },
   login (email = '', password = ''){
-    return obj.post('/api/ousers/login', {
+    return obj.post('/api/ousers/userLogin', {
       email,
       password: md5(password)
     })
