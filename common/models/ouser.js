@@ -2,8 +2,6 @@
 
 const promisify = require('promisify-node');
 
-const app = require('../../server/server');
-
 module.exports = function(Ouser) {
   promisify(Ouser.findOne);
   promisify(Ouser.login);
@@ -23,13 +21,6 @@ module.exports = function(Ouser) {
       res.msg = '登录失败';
       cb(err,res);
     });
-  };
-
-  /*
-  * 根据用户token获取其对应的角色名称
-  * */
-  Ouser.getPrincipalByToken = function(accessToken = '', cb) {
-    // Ouser.findOne({email, password})
   };
 
   Ouser.remoteMethod(

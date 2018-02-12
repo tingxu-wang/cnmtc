@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    userInfo: null,
+    userInfo: {},
     locationList: [
       {text: '全部', value: 0},
       {text: '京内', value: 1},

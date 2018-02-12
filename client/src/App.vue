@@ -5,6 +5,8 @@
 </template>
 
 <script>
+  import query from './service/query';
+
   export default {
     name: 'app',
     data() {
@@ -15,25 +17,22 @@
       '$route': 'routerChange'
     },
     created (){
-//    	this.checkLogin();
+    	this.setUserInfo();
     },
     methods: {
       routerChange (){
-//      	this.checkLogin();
-      },
-      checkLogin (){
-        const userInfo = sessionStorage.getItem('userInfo');
 
-        if(this.$route.name === 'login'){
-          if(userInfo){
-            this.$router.go(-1);
-          }
-        }else{
-          if(userInfo){
-            this.$store.commit('setUserInfo', JSON.parse(userInfo));
-          }else{
-            this.$router.push({ name : 'login' });
-          }
+      },
+      setUserInfo (){
+        const access_token = localStorage.getItem('access_token');
+
+        if(access_token){
+          query.getPrincipalsByToken(access_token).then((res) =>{
+          	const data = res.data.data;
+          	if(data.code === 1){
+              this.$store.commit('setUserInfo', data.data);
+            }
+          })
         }
       }
     },

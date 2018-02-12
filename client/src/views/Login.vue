@@ -19,8 +19,8 @@
     name: 'login',
     data() {
     	return {
-        email: '768165932@qq.com',
-        password: '',
+        email: 'admin@e.com',
+        password: '12345',
         emailError: '',
         passwordError: '',
         errorText: ''
@@ -38,7 +38,7 @@
           		this.errorText = '账号或密码错误';
           		return
             }
-//            sessionStorage.setItem('userInfo', JSON.stringify(data.data));
+            localStorage.setItem('access_token', res.data.data.data.accessToken);
             this.$router.push({ name: 'userList' });
           })
         }

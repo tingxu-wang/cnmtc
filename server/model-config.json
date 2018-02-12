@@ -23,11 +23,11 @@
   },
   "ACL": {
     "dataSource": "mongo",
-    "public": false
+    "public": true
   },
   "RoleMapping": {
     "dataSource": "mongo",
-    "public": false,
+    "public": true,
     "options": {
       "strictObjectIDCoercion": true
     }

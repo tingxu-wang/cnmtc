@@ -38,6 +38,11 @@ const obj = {
       password: md5(password)
     })
   },
+  getPrincipalsByToken (access_token = ''){
+    return obj.post('/api/Roles/getPrincipalsByToken', {
+      access_token,
+    })
+  },
   getPersonList (name = '', location = 0, career = 0, evaluate = 0){
     return obj.get('/api/people/getList', {
       name,
