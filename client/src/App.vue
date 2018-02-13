@@ -33,11 +33,11 @@
       '$route': 'routerChange'
     },
     created (){
-    	this.setUserInfo();
+      this.setUserInfo();
     },
     methods: {
       routerChange (){
-
+        this.setUserInfo();
       },
 
       /* 权限 */
