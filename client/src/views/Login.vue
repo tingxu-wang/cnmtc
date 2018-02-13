@@ -38,8 +38,13 @@
           		this.errorText = '账号或密码错误';
           		return
             }
-            localStorage.setItem('access_token', res.data.data.data.accessToken);
-            this.$router.push({ name: 'userList' });
+            query.getPrincipalsByToken(res.data.data.data.accessToken).then((res) =>{
+              const data = res.data.data;
+              if(data.code === 1){
+                localStorage.setItem('permisson', data.data.principalName);
+                this.$router.push({ name: 'userList' });
+              }
+            });
           })
         }
       }

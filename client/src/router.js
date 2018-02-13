@@ -3,8 +3,10 @@ import Router from 'vue-router'
 import Login from './views/Login.vue'
 import UserList from './views/UserList.vue'
 import UserDetail from './views/UserDetail.vue'
+import UserUpdate from './views/UserUpdate.vue'
+import UserCreate from './views/UserCreate.vue'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
@@ -19,9 +21,19 @@ export default new Router({
       component: UserList,
     },
     {
+      path: '/userdetail/create',
+      name: 'userCreate',
+      component: UserCreate,
+    },
+    {
       path: '/userdetail/:id',
       name: 'userDetail',
       component: UserDetail,
+    },
+    {
+      path: '/userdetail/:id/update',
+      name: 'userUpdate',
+      component: UserUpdate,
     },
   ]
 })

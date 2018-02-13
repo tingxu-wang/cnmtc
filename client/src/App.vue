@@ -1,5 +1,9 @@
 <template>
   <div id="app">
+    <mu-dialog :open="isGlobalDialogShow" :title="globalDialogTitle || '提示'" @close="dialogClose">
+      {{ globalDialogText }}
+      <mu-flat-button slot="actions" primary @click="dialogClose" label="确定"/>
+    </mu-dialog>
     <router-view/>
   </div>
 </template>
@@ -13,6 +17,17 @@
       return {
       }
     },
+    computed: {
+      globalDialogText() {
+        return this.$store.state.globalDialogText;
+      },
+      isGlobalDialogShow() {
+        return this.$store.state.isGlobalDialogShow;
+      },
+      globalDialogTitle() {
+        return this.$store.state.globalDialogTitle;
+      }
+    },
     watch: {
       '$route': 'routerChange'
     },
@@ -23,18 +38,20 @@
       routerChange (){
 
       },
-      setUserInfo (){
-        const access_token = localStorage.getItem('access_token');
 
-        if(access_token){
-          query.getPrincipalsByToken(access_token).then((res) =>{
-          	const data = res.data.data;
-          	if(data.code === 1){
-              this.$store.commit('setUserInfo', data.data);
-            }
-          })
+      /* 权限 */
+      setUserInfo (){
+        const permisson = localStorage.getItem('permisson');
+
+        if(permisson){
+          this.$store.commit('setPermisson', permisson);
         }
-      }
+      },
+
+      /* 弹层 */
+      dialogClose (){
+      	this.$store.commit('closeDialog');
+      },
     },
     components: {
 

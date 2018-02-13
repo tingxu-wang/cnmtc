@@ -2,9 +2,9 @@
   <div>
     <mu-card>
       <mu-card-title :title="userInfo.name"/>
-      <mu-card-title title="地点" :subTitle="userInfo.location | getOptionText(locationList)"/>
-      <mu-card-title title="专业领域" :subTitle="userInfo.career | getOptionText(careerList)"/>
-      <mu-card-title title="服务质量评价" :subTitle="userInfo.evaluate | getOptionText(evaluateList)"/>
+      <mu-card-title title="地点" :subTitle="userInfo.location | getOptionText(locationListAll)"/>
+      <mu-card-title title="专业领域" :subTitle="userInfo.career | getOptionText(careerListAll)"/>
+      <mu-card-title title="服务质量评价" :subTitle="userInfo.evaluate | getOptionText(evaluateListAll)"/>
     </mu-card>
   </div>
 </template>
@@ -32,14 +32,14 @@
       })
     },
     computed: {
-      locationList (){
-        return this.$store.state.locationList;
+      locationListAll (){
+        return this.$store.state.locationListAll;
       },
-      careerList (){
-        return this.$store.state.careerList;
+      careerListAll (){
+        return this.$store.state.careerListAll;
       },
-      evaluateList (){
-        return this.$store.state.evaluateList;
+      evaluateListAll (){
+        return this.$store.state.evaluateListAll;
       },
     },
     methods: {

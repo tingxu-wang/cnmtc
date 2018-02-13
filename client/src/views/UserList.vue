@@ -1,15 +1,15 @@
 <template>
   <div>
     <mu-select-field v-model="location" :labelFocusClass="['label-foucs']" label="选择地点">
-      <mu-menu-item v-for="item,index in locationList" :key="index" :value="item.value" :title="item.text" />
+      <mu-menu-item v-for="item,index in locationListAll" :key="index" :value="item.value" :title="item.text" />
     </mu-select-field>
     <mu-select-field v-model="career" :labelFocusClass="['label-foucs']" label="选择专业领域">
-      <mu-menu-item v-for="item,index in careerList" :key="index" :value="item.value" :title="item.text" />
+      <mu-menu-item v-for="item,index in careerListAll" :key="index" :value="item.value" :title="item.text" />
     </mu-select-field>
     <mu-select-field v-model="evaluate" :labelFocusClass="['label-foucs']" label="选择服务质量评价">
-      <mu-menu-item v-for="item,index in evaluateList" :key="index" :value="item.value" :title="item.text" />
+      <mu-menu-item v-for="item,index in evaluateListAll" :key="index" :value="item.value" :title="item.text" />
     </mu-select-field>
-    <mu-auto-complete hintText="姓名" @input="handleNameInput" :dataSource="nameDataSource" @change="handleNamechange" />
+    <mu-auto-complete label="姓名" @input="handleNameInput" :dataSource="nameDataSource" @change="handleNamechange" />
     <mu-raised-button label="搜索" @click="getPersonList" primary/>
     <div>
       <mu-table ref="table" :selectable="false" :showCheckbox="false">
@@ -25,16 +25,18 @@
         <mu-tbody>
           <mu-tr v-for="item in personList">
             <mu-td>{{ item.name }}</mu-td>
-            <mu-td>{{ item.location | getOptionText(locationList) }}</mu-td>
-            <mu-td>{{ item.career | getOptionText(careerList) }}</mu-td>
-            <mu-td>{{ item.evaluate | getOptionText(evaluateList) }}</mu-td>
+            <mu-td>{{ item.location | getOptionText(locationListAll) }}</mu-td>
+            <mu-td>{{ item.career | getOptionText(careerListAll) }}</mu-td>
+            <mu-td>{{ item.evaluate | getOptionText(evaluateListAll) }}</mu-td>
             <mu-td>
               <mu-raised-button label="查看详情" @click="toDetail(item.id)" primary/>
+              <mu-raised-button label="编辑" @click="toUpdate(item.id)" v-if="permission === 'admin'" primary/>
             </mu-td>
           </mu-tr>
         </mu-tbody>
       </mu-table>
     </div>
+    <mu-raised-button label="添加" @click="toCreate" v-if="permission === 'admin'" primary/>
   </div>
 </template>
 
@@ -56,17 +58,17 @@
       this.getPersonList();
     },
     computed: {
-    	userInfo (){
-    		return this.$store.state.userInfo;
+      permission (){
+    		return this.$store.state.permission;
       },
-      locationList (){
-        return this.$store.state.locationList;
+      locationListAll (){
+        return this.$store.state.locationListAll;
       },
-      careerList (){
-        return this.$store.state.careerList;
+      careerListAll (){
+        return this.$store.state.careerListAll;
       },
-      evaluateList (){
-        return this.$store.state.evaluateList;
+      evaluateListAll (){
+        return this.$store.state.evaluateListAll;
       },
       nameDataSource (){
       	return this.personList.map((item) =>{
@@ -77,6 +79,12 @@
     methods: {
     	toDetail (id){
     		this.$router.push({ name: 'userDetail', params: {id} })
+      },
+      toUpdate (id){
+        this.$router.push({ name: 'userUpdate', params: {id} })
+      },
+      toCreate (){
+        this.$router.push({ name: 'userCreate' })
       },
       handleNamechange (val){
       	this.name = val;

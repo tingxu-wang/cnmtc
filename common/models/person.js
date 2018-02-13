@@ -60,6 +60,21 @@ module.exports = function(Person) {
     }
   };
 
+  Person.updatePerson = function(id = '', name, location, career, evaluate, cb) {
+    Person.update({id},{name, location, career, evaluate},function(err, data){
+      let res = {};
+      if(data.count > 0){
+        res.code = 1;
+        res.msg = '修改成功'
+      }else{
+        res.code = 0;
+        res.msg = '修改失败'
+      }
+
+      cb(err,res);
+    })
+  };
+
   Person.remoteMethod(
     'getList',{
       http: {
@@ -85,10 +100,44 @@ module.exports = function(Person) {
       ],
       returns: {
         arg: 'data',
-        type: 'string',
+        type: 'object',
       }
     }
-  )
+  );
+
+  Person.remoteMethod(
+    'updatePerson',{
+      http: {
+        verb: 'put'
+      },
+      accepts:[
+        {
+          arg: 'id',
+          type: 'string',
+        },
+        {
+          arg: 'name',
+          type: 'string',
+        },
+        {
+          arg: 'location',
+          type: 'number',
+        },
+        {
+          arg: 'career',
+          type: 'number',
+        },
+        {
+          arg: 'evaluate',
+          type: 'number',
+        },
+      ],
+      returns: {
+        arg: 'data',
+        type: 'object',
+      }
+    }
+  );
 
   Person.remoteMethod(
     'getById',{
