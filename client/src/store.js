@@ -27,9 +27,7 @@ const evaluateList = [
   {text: '较差', value: 4},
 ];
 
-
-
-export default new Vuex.Store({
+const store = {
   state: {
     permission: 'user',
     locationList,
@@ -41,30 +39,48 @@ export default new Vuex.Store({
 
     /* 公共弹层 */
     globalDialogText: '',
-    globalDialogTitle: '',
-    isGlobalDialogShow: false,
+    dialogTitle: '',
+    isDialogShow: false,
+    confirmCb: function(){
+      store.state.isDialogShow = false;
+    },
   },
   mutations: {
     setPermisson(state, data) {
       state.permission = data;
     },
-    showDialog(state, data) {
-      const {text, title} = data;
+    openDialog(state, data) {
+      const {text, title, confirmCb} = data;
 
       if(text){
         state.globalDialogText = text;
       }
-      if(text){
-        state.globalDialogTitle = title;
+      if(title){
+        state.dialogTitle = title;
       }
-      state.isGlobalDialogShow = true;
+      if(typeof confirmCb === 'function'){
+        state.confirmCb = confirmCb;
+      }else{
+        state.confirmCb = function(){
+          state.isDialogShow = false;
+        }
+      }
+      state.isDialogShow = true;
     },
     closeDialog(state) {
       state.globalDialogText = '';
-      state.isGlobalDialogShow = false;
-    }
+      state.isDialogShow = false;
+      state.confirmCb = function(){
+        state.isDialogShow = false;
+      };
+    },
+    dialogConfirm(state) {
+      state.confirmCb();
+    },
   },
   actions: {
 
   }
-})
+};
+
+export default new Vuex.Store(store);

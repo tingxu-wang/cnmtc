@@ -16,9 +16,9 @@
 
         query.createPerson(name, location, career, evaluate).then(res =>{
         	if(res.error){
-            this.$store.commit('showDialog',{text: '创建失败',title: '错误'});
+            this.$store.commit('openDialog',{text: '创建失败',title: '错误'});
           }else{
-            this.$store.commit('showDialog',{text: '创建成功'});
+            this.$store.commit('openDialog',{text: '创建成功'});
           }
         });
       }

@@ -23,7 +23,7 @@
           </mu-tr>
         </mu-thead>
         <mu-tbody>
-          <mu-tr v-for="item in personList">
+          <mu-tr v-for="item,index in personList">
             <mu-td>{{ item.name }}</mu-td>
             <mu-td>{{ item.location | getOptionText(locationListAll) }}</mu-td>
             <mu-td>{{ item.career | getOptionText(careerListAll) }}</mu-td>
@@ -31,6 +31,7 @@
             <mu-td>
               <mu-raised-button label="查看详情" @click="toDetail(item.id)" primary/>
               <mu-raised-button label="编辑" @click="toUpdate(item.id)" v-if="permission === 'admin'" primary/>
+              <mu-raised-button label="删除" @click="deletePerson(item.id, item.name, index)" v-if="permission === 'admin'" secondary/>
             </mu-td>
           </mu-tr>
         </mu-tbody>
@@ -77,23 +78,23 @@
       },
     },
     methods: {
-    	toDetail (id){
+    	toDetail(id) {
     		this.$router.push({ name: 'userDetail', params: {id} })
       },
-      toUpdate (id){
+      toUpdate(id) {
         this.$router.push({ name: 'userUpdate', params: {id} })
       },
-      toCreate (){
+      toCreate() {
         this.$router.push({ name: 'userCreate' })
       },
-      handleNamechange (val){
+      handleNamechange(val) {
       	this.name = val;
       },
-      handleNameInput (val){
+      handleNameInput(val) {
         this.name = val;
         this.getPersonList();
       },
-      getPersonList (){
+      getPersonList() {
         query.getPersonList(this.name, this.location, this.career, this.evaluate).then((res) => {
           const data = res.data.data;
 
@@ -101,7 +102,26 @@
           	this.personList = data.data;
           }
         });
-      }
+      },
+      deletePerson(id, name, index) {
+        this.$store.commit('openDialog',{
+        	text: `确定要删除${name}的信息吗？`,
+          confirmCb:()=>{
+        		query.deletePerson(id).then((res)=>{
+              if(res.data.count > 0){
+                this.$store.commit('openDialog',{
+                	text: '删除成功'
+                });
+                this.personList.splice(index, 1);
+              }else{
+                this.$store.commit('openDialog',{
+                  text: '删除失败'
+                });
+              }
+            })
+          },
+        })
+      },
     },
     components: {
 

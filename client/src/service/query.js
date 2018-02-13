@@ -7,7 +7,7 @@ axios.interceptors.response.use(res => {
   if(data){
     if(data.code === 0){
       const store = vue.$store;
-      store.commit('showDialog',{text: data.msg || '未知错误',title: '错误'});
+      store.commit('openDialog',{text: data.msg || '未知错误',title: '错误'});
     }
   }
   return res;
@@ -16,7 +16,7 @@ axios.interceptors.response.use(res => {
     const store = vue.$store;
     switch(err.response.status){
       case 401:
-        store.commit('showDialog',{text: '登录超时,请重新登录', title: '错误'});
+        store.commit('openDialog',{text: '登录超时,请重新登录', title: '错误'});
         vue.$router.replace({ name: 'login' });
         break;
     }
@@ -48,6 +48,14 @@ const obj = {
     return axios({
       url,
       method: 'put',
+      data,
+      params,
+    })
+  },
+  delete (url, data, params = ''){
+    return axios({
+      url,
+      method: 'delete',
       data,
       params,
     })
@@ -96,6 +104,9 @@ const obj = {
       career,
       evaluate,
     })
+  },
+  deletePerson (id = ''){
+    return obj.delete(`/api/people/${id}`);
   }
 };
 

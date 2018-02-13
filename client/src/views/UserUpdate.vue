@@ -33,7 +33,7 @@
         query.updatePerson(id, name, location, career, evaluate).then(res =>{
         	const data = res.data.data;
         	if(data.code === 1){
-            this.$store.commit('showDialog', {text: data.msg});
+            this.$store.commit('openDialog', {text: data.msg});
           }
         })
       }

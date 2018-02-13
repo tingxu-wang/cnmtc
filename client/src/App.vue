@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    <mu-dialog :open="isGlobalDialogShow" :title="globalDialogTitle || '提示'" @close="dialogClose">
+    <mu-dialog :open="isDialogShow" :title="dialogTitle || '提示'" @close="dialogClose">
       {{ globalDialogText }}
-      <mu-flat-button slot="actions" primary @click="dialogClose" label="确定"/>
+      <mu-flat-button slot="actions" primary @click="dialogClose" label="取消"/>
+      <mu-flat-button slot="actions" primary @click="dialogConfirm" label="确定"/>
     </mu-dialog>
     <router-view/>
   </div>
@@ -21,11 +22,11 @@
       globalDialogText() {
         return this.$store.state.globalDialogText;
       },
-      isGlobalDialogShow() {
-        return this.$store.state.isGlobalDialogShow;
+      isDialogShow() {
+        return this.$store.state.isDialogShow;
       },
-      globalDialogTitle() {
-        return this.$store.state.globalDialogTitle;
+      dialogTitle() {
+        return this.$store.state.dialogTitle;
       }
     },
     watch: {
@@ -51,6 +52,9 @@
       /* 弹层 */
       dialogClose (){
       	this.$store.commit('closeDialog');
+      },
+      dialogConfirm (){
+        this.$store.commit('dialogConfirm');
       },
     },
     components: {
