@@ -88,12 +88,20 @@
 </script>
 
 <style lang="less" scoped>
-  .head{
-    background-color: #eee;
-  }
-  .mu-tr{
-    &.hover{
-      background-color: #fff;
+  .container{
+    margin-top: 20px;
+    .head{
+      background-color: #eee;
+    }
+    .mu-tr{
+      &.hover{
+         background-color: #fff;
+       }
+      .mu-td{
+        word-wrap: break-word;
+        white-space: normal;
+      }
     }
   }
+
 </style>
