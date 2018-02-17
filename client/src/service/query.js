@@ -14,9 +14,15 @@ axios.interceptors.response.use(res => {
 }, err => {
   if(err.response){
     const store = vue.$store;
-    switch(err.response.status){
-      case 401:
+    const status = err.response.status;
+    switch(true){
+      case 401 === status:
         store.commit('openDialog',{text: '登录超时,请重新登录', title: '错误'});
+        vue.$router.replace({ name: 'login' });
+        break;
+
+      case /^5/.test(status):
+        store.commit('openDialog',{text: '服务器错误', title: '错误'});
         vue.$router.replace({ name: 'login' });
         break;
     }
@@ -83,12 +89,18 @@ const obj = {
       evaluate,
     })
   },
-  createPerson (name = '', location = 0, career = 0, evaluate = 0){
+  createPerson (name = '', location = 0, career = 0, evaluate = 0, company = '', call = '', telephone = '', email = '', rank = '', note = ''){
     return obj.post('/api/people', {
       name,
       location,
       career,
       evaluate,
+      company,
+      call,
+      telephone,
+      email,
+      rank,
+      note,
     })
   },
   getPersonById (id = ''){
@@ -96,13 +108,19 @@ const obj = {
       id,
     });
   },
-  updatePerson (id = '', name, location, career, evaluate){
+  updatePerson (id = '', name, location, career, evaluate, company, call, telephone, email, rank, note){
     return obj.put('/api/people/updatePerson', {
       id,
       name,
       location,
       career,
       evaluate,
+      company,
+      call,
+      telephone,
+      email,
+      rank,
+      note,
     })
   },
   deletePerson (id = ''){

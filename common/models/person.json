@@ -21,6 +21,24 @@
     "evaluate": {
       "type": "number",
       "required": true
+    },
+    "company": {
+      "type": "string"
+    },
+    "call": {
+      "type": "string"
+    },
+    "telephone": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "rank": {
+      "type": "string"
+    },
+    "note": {
+      "type": "string"
     }
   },
   "validations": [],

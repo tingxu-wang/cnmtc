@@ -27,13 +27,14 @@
     },
     methods: {
       updateInfo (info){
-      	const {name, location, career, evaluate} = info;
+      	const {name, location, career, evaluate, company, call, telephone, email, rank, note} = info;
         const id = this.$route.params.id;
 
-        query.updatePerson(id, name, location, career, evaluate).then(res =>{
+        query.updatePerson(id, name, location, career, evaluate, company, call, telephone, email, rank, note).then(res =>{
         	const data = res.data.data;
         	if(data.code === 1){
             this.$store.commit('openDialog', {text: data.msg});
+            this.$router.push({ name: 'userList' });
           }
         })
       }

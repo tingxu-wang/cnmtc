@@ -60,8 +60,8 @@ module.exports = function(Person) {
     }
   };
 
-  Person.updatePerson = function(id = '', name, location, career, evaluate, cb) {
-    Person.update({id},{name, location, career, evaluate},function(err, data){
+  Person.updatePerson = function(id = '', name, location, career, evaluate, company, call, telephone, email, rank, note, cb) {
+    Person.update({id},{name, location, career, evaluate, company, call, telephone, email, rank, note},function(err, data){
       let res = {};
       if(data.count > 0){
         res.code = 1;
@@ -130,6 +130,30 @@ module.exports = function(Person) {
         {
           arg: 'evaluate',
           type: 'number',
+        },
+        {
+          arg: 'company',
+          type: 'string',
+        },
+        {
+          arg: 'call',
+          type: 'string',
+        },
+        {
+          arg: 'telephone',
+          type: 'string',
+        },
+        {
+          arg: 'email',
+          type: 'string',
+        },
+        {
+          arg: 'rank',
+          type: 'string',
+        },
+        {
+          arg: 'note',
+          type: 'string',
         },
       ],
       returns: {
