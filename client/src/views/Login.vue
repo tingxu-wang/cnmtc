@@ -19,8 +19,8 @@
     name: 'login',
     data() {
     	return {
-        email: 'admin@e.com',
-        password: '12345',
+        email: '',
+        password: '',
         emailError: '',
         passwordError: '',
         errorText: ''

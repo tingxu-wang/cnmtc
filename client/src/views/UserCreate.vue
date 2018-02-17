@@ -1,6 +1,8 @@
 <template>
   <div>
     <user-edit :submit-method="createInfo"></user-edit>
+
+    <mu-raised-button label="返回" @click="toList" class="back" primary/>
   </div>
 </template>
 
@@ -22,7 +24,10 @@
             this.$router.push({ name: 'userList' });
           }
         });
-      }
+      },
+      toList() {
+        this.$router.push({ name: 'userList' });
+      },
     },
     components: {
       UserEdit
@@ -31,5 +36,7 @@
 </script>
 
 <style lang="less" scoped>
-
+.back{
+  margin-top: 10px;
+}
 </style>

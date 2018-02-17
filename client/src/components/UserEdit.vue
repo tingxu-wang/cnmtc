@@ -31,7 +31,7 @@
       <mu-text-field label="电子邮箱" v-model="formInfo.email"/>
     </div>
     <div>
-      <mu-text-field label="工作业绩" v-model="formInfo.rank"/>
+      <mu-text-field label="工作业绩" v-model="formInfo.rank" multiLine :rows="3" hintText="可填写多行"/>
     </div>
     <div>
       <mu-text-field label="备注" v-model="formInfo.note"/>

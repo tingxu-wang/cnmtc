@@ -2,8 +2,8 @@
   <div id="app">
     <mu-dialog :open="isDialogShow" :title="dialogTitle || '提示'" @close="dialogClose">
       {{ globalDialogText }}
-      <mu-flat-button slot="actions" primary @click="dialogClose" label="取消"/>
       <mu-flat-button slot="actions" primary @click="dialogConfirm" label="确定"/>
+      <mu-flat-button slot="actions" primary @click="dialogClose" label="取消"/>
     </mu-dialog>
     <router-view/>
   </div>
@@ -64,5 +64,13 @@
 </script>
 
 <style lang="less">
-
+  /* global style */
+  .mu-text-field-label{
+    font-size: 18px;
+  }
+  .mu-th{
+    .mu-th-wrapper{
+      font-size: 15px;
+    }
+  }
 </style>

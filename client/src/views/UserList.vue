@@ -1,16 +1,20 @@
 <template>
   <div>
-    <mu-select-field v-model="location" :labelFocusClass="['label-foucs']" label="选择地点">
-      <mu-menu-item v-for="item,index in locationListAll" :key="index" :value="item.value" :title="item.text" />
-    </mu-select-field>
-    <mu-select-field v-model="career" :labelFocusClass="['label-foucs']" label="选择专业领域">
-      <mu-menu-item v-for="item,index in careerListAll" :key="index" :value="item.value" :title="item.text" />
-    </mu-select-field>
-    <mu-select-field v-model="evaluate" :labelFocusClass="['label-foucs']" label="选择服务质量评价">
-      <mu-menu-item v-for="item,index in evaluateListAll" :key="index" :value="item.value" :title="item.text" />
-    </mu-select-field>
-    <mu-auto-complete label="姓名" @input="handleNameInput" :dataSource="nameDataSource" @change="handleNamechange" />
-    <mu-raised-button label="搜索" @click="getPersonList" primary/>
+    <div>
+      <mu-select-field v-model="location" :labelFocusClass="['label-foucs']" label="选择地点">
+        <mu-menu-item v-for="item,index in locationListAll" :key="index" :value="item.value" :title="item.text" />
+      </mu-select-field>
+      <mu-select-field v-model="career" :labelFocusClass="['label-foucs']" label="选择专业领域">
+        <mu-menu-item v-for="item,index in careerListAll" :key="index" :value="item.value" :title="item.text" />
+      </mu-select-field>
+      <mu-select-field v-model="evaluate" :labelFocusClass="['label-foucs']" label="选择服务质量评价">
+        <mu-menu-item v-for="item,index in evaluateListAll" :key="index" :value="item.value" :title="item.text" />
+      </mu-select-field>
+      <div class="search">
+        <mu-auto-complete label="姓名" @input="handleNameInput" :dataSource="nameDataSource" @change="handleNamechange" />
+        <mu-raised-button label="搜索" @click="getPersonList" primary/>
+      </div>
+    </div>
     <div>
       <mu-table ref="table" :selectable="false" :showCheckbox="false">
         <mu-thead>
@@ -79,7 +83,8 @@
     },
     methods: {
     	toDetail(id) {
-    		this.$router.push({ name: 'userDetail', params: {id} })
+    		const {href} = this.$router.resolve({ name: 'userDetail', params: {id} });
+    		window.open(href, '_blank');
       },
       toUpdate(id) {
         this.$router.push({ name: 'userUpdate', params: {id} })
@@ -130,5 +135,9 @@
 </script>
 
 <style lang="less" scoped>
-
+.search{
+  display: inline-block;
+  position: relative;
+  top: -11px;
+}
 </style>

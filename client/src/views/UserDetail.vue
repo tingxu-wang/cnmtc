@@ -1,17 +1,47 @@
 <template>
   <div>
-    <mu-card>
-      <mu-card-title :title="userInfo.name"/>
-      <mu-card-title title="地点" :subTitle="userInfo.location | getOptionText(locationListAll)"/>
-      <mu-card-title title="专业领域" :subTitle="userInfo.career | getOptionText(careerListAll)"/>
-      <mu-card-title title="服务质量评价" :subTitle="userInfo.evaluate | getOptionText(evaluateListAll)"/>
-      <mu-card-title title="工作单位" :subTitle="userInfo.company"/>
-      <mu-card-title title="办公室电话" :subTitle="userInfo.call"/>
-      <mu-card-title title="联系方式" :subTitle="userInfo.telephone"/>
-      <mu-card-title title="电子邮箱" :subTitle="userInfo.email"/>
-      <mu-card-title title="工作业绩" :subTitle="userInfo.rank"/>
-      <mu-card-title title="备注" :subTitle="userInfo.note"/>
-    </mu-card>
+    <mu-table ref="table" :selectable="false" :showCheckbox="false">
+      <mu-tbody>
+        <mu-tr>
+          <mu-td class="head">地点</mu-td>
+          <mu-td>{{ userInfo.location | getOptionText(locationListAll) }}</mu-td>
+
+          <mu-td class="head">专业领域</mu-td>
+          <mu-td>{{ userInfo.career | getOptionText(careerListAll) }}</mu-td>
+        </mu-tr>
+
+        <mu-tr>
+          <mu-td class="head">服务质量评价</mu-td>
+          <mu-td>{{ userInfo.evaluate | getOptionText(evaluateListAll) }}</mu-td>
+
+          <mu-td class="head">工作单位</mu-td>
+          <mu-td>{{ userInfo.company }}</mu-td>
+        </mu-tr>
+
+        <mu-tr>
+          <mu-td class="head">办公室电话</mu-td>
+          <mu-td>{{ userInfo.call }}</mu-td>
+
+          <mu-td class="head">联系方式</mu-td>
+          <mu-td>{{ userInfo.telephone }}</mu-td>
+        </mu-tr>
+
+        <mu-tr>
+          <mu-td class="head">电子邮箱</mu-td>
+          <mu-td colspan="3">{{ userInfo.email }}</mu-td>
+        </mu-tr>
+
+        <mu-tr>
+          <mu-td class="head">工作业绩</mu-td>
+          <mu-td colspan="3">{{ userInfo.rank }}</mu-td>
+        </mu-tr>
+
+        <mu-tr>
+          <mu-td class="head">备注</mu-td>
+          <mu-td colspan="3">{{ userInfo.note }}</mu-td>
+        </mu-tr>
+      </mu-tbody>
+    </mu-table>
   </div>
 </template>
 
@@ -55,5 +85,12 @@
 </script>
 
 <style lang="less" scoped>
-
+  .head{
+    background-color: #eee;
+  }
+  .mu-tr{
+    &.hover{
+      background-color: #fff;
+    }
+  }
 </style>
