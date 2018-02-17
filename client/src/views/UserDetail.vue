@@ -1,34 +1,37 @@
 <template>
-  <div>
+  <div class="container">
     <mu-table ref="table" :selectable="false" :showCheckbox="false">
       <mu-tbody>
         <mu-tr>
+          <mu-td class="head">姓名</mu-td>
+          <mu-td>{{ userInfo.name }}</mu-td>
+
           <mu-td class="head">地点</mu-td>
           <mu-td>{{ userInfo.location | getOptionText(locationListAll) }}</mu-td>
+        </mu-tr>
 
+        <mu-tr>
           <mu-td class="head">专业领域</mu-td>
           <mu-td>{{ userInfo.career | getOptionText(careerListAll) }}</mu-td>
-        </mu-tr>
 
-        <mu-tr>
           <mu-td class="head">服务质量评价</mu-td>
           <mu-td>{{ userInfo.evaluate | getOptionText(evaluateListAll) }}</mu-td>
+        </mu-tr>
 
+        <mu-tr>
           <mu-td class="head">工作单位</mu-td>
           <mu-td>{{ userInfo.company }}</mu-td>
-        </mu-tr>
 
-        <mu-tr>
           <mu-td class="head">办公室电话</mu-td>
           <mu-td>{{ userInfo.call }}</mu-td>
-
-          <mu-td class="head">联系方式</mu-td>
-          <mu-td>{{ userInfo.telephone }}</mu-td>
         </mu-tr>
 
         <mu-tr>
+          <mu-td class="head">联系方式</mu-td>
+          <mu-td>{{ userInfo.telephone }}</mu-td>
+
           <mu-td class="head">电子邮箱</mu-td>
-          <mu-td colspan="3">{{ userInfo.email }}</mu-td>
+          <mu-td>{{ userInfo.email }}</mu-td>
         </mu-tr>
 
         <mu-tr>
