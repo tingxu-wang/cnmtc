@@ -65,6 +65,10 @@
 
 <style lang="less">
   /* global style */
+  html,body,#app{
+    height: 100%;
+  }
+
   .mu-text-field-label{
     font-size: 18px;
   }
