@@ -12,6 +12,9 @@ Vue.config.productionTip = false
 
 Object.keys(filters).forEach(k => Vue.filter(k, filters[k]));
 
+// ranven
+Raven.config('https://46bdfb0246394a8aab4873ce7b89e0cb@sentry.io/294263').install();
+
 export default new Vue({
   router,
   store,
